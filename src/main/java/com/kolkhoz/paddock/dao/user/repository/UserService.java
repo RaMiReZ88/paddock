@@ -10,21 +10,21 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public Optional<UserDto> getCurrentlyLoggedUser() {
+    public UserDto getCurrentlyLoggedUser() {
         return findUserByNickname(SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getName()
         );
     }
 
-    public Optional<UserDto> findUserByNickname(final String nickname) {
-        return userRepository.findUserByNickname(nickname).map(this::convertToDto);
+    public UserDto findUserByNickname(final String nickname) {
+        return userRepository.findUserByNickname(nickname).map(this::convertToDto).get();
     }
 
     public Optional<UserDto> findUserById(final Long id) {
@@ -36,10 +36,11 @@ public class UserService {
     }
 
     public void update(final User updatableUser) {
-        User currentUser = getCurrentlyLoggedUser().map(this::convertToEntity).get();
-        currentUser.setName(updatableUser.getName());
+        User currentUser = convertToEntity(getCurrentlyLoggedUser());
+        currentUser.setUsername(updatableUser.getUsername());
         currentUser.setNickname(updatableUser.getNickname());
-        currentUser.setAge(updatableUser.getAge());
+        currentUser.setBirthday(updatableUser.getBirthday());
+        currentUser.setRating(0L);
         currentUser.setCity(updatableUser.getCity());
 
         save(currentUser);
@@ -52,10 +53,10 @@ public class UserService {
     private UserDto convertToDto(final User user) {
         return UserDto.builder()
                 .id(user.getId())
-                .name(user.getName())
+                .name(user.getUsername())
                 .nickname(user.getNickname())
                 .city(user.getCity())
-                .age(user.getAge())
+                .birthday(user.getBirthday())
                 .role(user.getRole())
                 .build();
     }
@@ -63,10 +64,10 @@ public class UserService {
     private User convertToEntity(final UserDto userDto) {
         return User.builder()
                 .id(userDto.getId())
-                .name(userDto.getName())
+                .username(userDto.getName())
                 .nickname(userDto.getNickname())
                 .city(userDto.getCity())
-                .age(userDto.getAge())
+                .birthday(userDto.getBirthday())
                 .role(userDto.getRole())
                 .build();
     }

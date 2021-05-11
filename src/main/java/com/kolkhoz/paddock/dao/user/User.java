@@ -5,34 +5,41 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
+@Entity
+@Table(name = "USR")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
-@Table(name = "USR")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "USERNAME")
+    private String username;
 
-    @Column(name = "nickname")
+    @Column(name = "NICKNAME")
     private String nickname;
 
-    @Column(name = "age")
-    private Long age;
+    @Column(name = "BIRTHDAY")
+    @DateTimeFormat(pattern = "dd-mm-yyyy")
+    private LocalDate birthday;
 
-    @Column(name = "city")
+    @Column(name = "CITY")
     private String city;
 
-    @Column(name = "role")
+    @Column(name = "RATING")
+    private Long rating;
+
+    @Column(name = "ROLE")
     @Enumerated(EnumType.STRING)
     private Role role;
 
