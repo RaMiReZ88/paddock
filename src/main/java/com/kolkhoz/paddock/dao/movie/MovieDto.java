@@ -1,4 +1,4 @@
-package com.kolkhoz.paddock.dao.user;
+package com.kolkhoz.paddock.dao.movie;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,14 +11,14 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserDto {
+public class MovieDto {
 
     private Long id;
-    private String nickname;
     private String name;
-    private LocalDate birthday;
-    private String city;
-    private Long rating;
-    private Role role;
+    private String description;
+    private Integer duration;
+    private String appraisal;
+    private LocalDate release;
+    private byte [] image;
 
 }

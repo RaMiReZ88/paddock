@@ -1,6 +1,7 @@
 package com.kolkhoz.paddock.dao.user;
 
-import com.kolkhoz.paddock.dao.user.Role;
+import com.kolkhoz.paddock.dao.comment.Comment;
+import com.kolkhoz.paddock.dao.news.News;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,6 +10,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "USR")
@@ -19,7 +22,8 @@ import java.time.LocalDate;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USR_SEQ")
+    @SequenceGenerator(name = "usr_seq", sequenceName = "USR_SEQ", allocationSize = 1)
     @Column(name = "ID")
     private Long id;
 
@@ -39,8 +43,14 @@ public class User {
     @Column(name = "RATING")
     private Long rating;
 
-    @Column(name = "ROLE")
+    @Column(name = "USER_ROLE")
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Role userRole;
+
+    @OneToMany(mappedBy = "author")
+    private Set<News> news;
+
+    @OneToMany(mappedBy = "author")
+    private List<Comment> comments;
 
 }

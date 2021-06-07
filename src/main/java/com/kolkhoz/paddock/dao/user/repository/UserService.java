@@ -40,7 +40,7 @@ public class UserService {
         currentUser.setUsername(updatableUser.getUsername());
         currentUser.setNickname(updatableUser.getNickname());
         currentUser.setBirthday(updatableUser.getBirthday());
-        currentUser.setRating(0L);
+        currentUser.setRating(updatableUser.getRating());
         currentUser.setCity(updatableUser.getCity());
 
         save(currentUser);
@@ -57,7 +57,7 @@ public class UserService {
                 .nickname(user.getNickname())
                 .city(user.getCity())
                 .birthday(user.getBirthday())
-                .role(user.getRole())
+                .role(user.getUserRole())
                 .build();
     }
 
@@ -68,7 +68,7 @@ public class UserService {
                 .nickname(userDto.getNickname())
                 .city(userDto.getCity())
                 .birthday(userDto.getBirthday())
-                .role(userDto.getRole())
+                .userRole(userDto.getRole())
                 .build();
     }
 }

@@ -1,0 +1,26 @@
+spring:
+
+  server:
+    port: ${APPLICATION_PORT}
+
+  batch:
+    jdbc:
+      initialize-schema: always
+
+  datasource:
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+    url: ${DATASOURCE_URL}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database: postgresql
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/
+#    default-schema: db/schema.sql
