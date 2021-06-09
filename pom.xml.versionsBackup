@@ -10,7 +10,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>com.kolkhoz</groupId>
+	<groupId>com.kolhoz</groupId>
 	<artifactId>paddock</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>paddock</name>

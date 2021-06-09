@@ -17,10 +17,10 @@ spring:
     database: postgresql
     show-sql: true
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
   liquibase:
     enabled: true
-    change-log: classpath:db/changelog/
+    change-log: classpath:db/changelog/2021-06-07-create-tables.sql
 #    default-schema: db/schema.sql

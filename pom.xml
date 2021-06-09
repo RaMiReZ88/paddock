@@ -111,10 +111,8 @@
 				<configuration>
 					<includes>
 						<include>**/controller/*</include>
-						<include>**/service/**/*Service.*</include>
 						<include>**/service/*</include>
 						<include>**/utils/**/*</include>
-						<include>**/ota/**</include>
 					</includes>
 					<excludes>
 						<exclude>**/ota/model/**</exclude>
