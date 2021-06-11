@@ -41,9 +41,15 @@ public class News {
     @Column(name = "IMAGE")
     private byte[] image;
 
+    @Column(name = "LIKES")
+    private Long likes;
+
+    @Column(name = "DISLIKES")
+    private Long dislikes;
+
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User author;
+    @JoinColumn(name = "USER_ID")
+    private User user;
 
     @OneToMany(mappedBy = "news")
     private List<Comment> comments;

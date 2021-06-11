@@ -36,6 +36,9 @@ public class User {
     @Column(name = "NICKNAME")
     private String nickname;
 
+    @Column(name = "PASSWORD")
+    private String password;
+
     @Column(name = "BIRTHDAY")
     @DateTimeFormat(pattern = "dd-mm-yyyy")
     private LocalDate birthday;
@@ -46,12 +49,12 @@ public class User {
     @Column(name = "AVATAR")
     private byte[] avatar;
 
-    @Column(name = "USER_ROLE")
+    @Column(name = "USR_ROLE")
     @Enumerated(EnumType.STRING)
     private Role userRole;
 
-    @Column(name = "REGISTRATION_DATE")
-    private LocalDate registrationDate;
+    @Column(name = "REGISTRATION_DATETIME")
+    private LocalDateTime registrationDateTime;
 
     @Column(name = "GAME_RATING")
     private Long gameRating;
@@ -69,16 +72,16 @@ public class User {
     private LocalDateTime expirationSubsDate;
 
     @ManyToOne
-    @JoinColumn(name = "clan_id")
+    @JoinColumn(name = "CLAN_ID")
     private Clan clan;
 
     @OneToMany(mappedBy = "user")
     private Set<PaymentHistory> paymentHistory;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "user")
     private Set<News> news;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "user")
     private List<Comment> comments;
 
 }

@@ -31,10 +31,10 @@ public class Comment {
     private LocalDateTime dateTimeAdded;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User author;
+    @JoinColumn(name = "USER_iD")
+    private User user;
 
     @ManyToOne
-    @JoinColumn(name = "news_id")
+    @JoinColumn(name = "NEW_ID")
     private News news;
 }

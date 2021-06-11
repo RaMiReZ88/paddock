@@ -1,0 +1,132 @@
+/* ============================================================================
+REFACTOR USR
+============================================================================ */
+
+CREATE TYPE USR_ROLE AS ENUM ('ADMIN', 'USER', 'MODERATOR', 'NEWSMAKER', 'SUPPORT');
+
+ALTER TABLE USR ALTER COLUMN USER_ROLE TYPE USR_ROLE;
+ALTER TABLE USR RENAME COLUMN USER_ROLE TO USR_ROLE;
+
+ALTER TABLE USR ADD COLUMN PASSWORD VARCHAR(255) NOT NULL;
+
+ALTER TABLE USR RENAME COLUMN AGE TO BIRTHDAY;
+
+ALTER TABLE USR ALTER COLUMN RATING TYPE BIGINT;
+ALTER TABLE ONLY USR ALTER COLUMN RATING SET DEFAULT 0;
+ALTER TABLE USR RENAME COLUMN RATING TO GAME_RATING;
+
+ALTER TABLE USR ADD COLUMN AVATAR BYTEA NULL;
+
+ALTER TABLE USR ADD COLUMN REGISTRATION_DATETIME TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NULL;
+
+ALTER TABLE USR ADD COLUMN MEDIA_RATING BIGINT DEFAULT 0 NOT NULL;
+
+ALTER TABLE USR ADD COLUMN BANNED BOOLEAN DEFAULT FALSE NOT NULL;
+
+ALTER TABLE USR ADD COLUMN SUBSCRIPTION BOOLEAN DEFAULT FALSE NOT NULL;
+
+ALTER TABLE USR ADD COLUMN EXPIRATION_SUBS_DATE TIMESTAMP NULL;
+
+ALTER TABLE USR ADD COLUMN CLAN_ID INTEGER NULL;
+
+ALTER TABLE USR
+    ADD CONSTRAINT FK_USR_CLAN
+        FOREIGN KEY (CLAN_ID) REFERENCES CLAN(ID);
+
+/* ============================================================================
+REFACTOR NEWS
+============================================================================ */
+
+ALTER TABLE NEWS RENAME COLUMN USER_ID TO USR_ID;
+
+ALTER TABLE NEWS ADD COLUMN LIKES INTEGER DEFAULT 0 NOT NULL;
+ALTER TABLE NEWS ADD COLUMN DISLIKES INTEGER DEFAULT 0 NOT NULL;
+
+ALTER TABLE NEWS
+    ADD CONSTRAINT FK_NEWS_USR
+        FOREIGN KEY (USR_ID) REFERENCES USR(ID);
+
+/* ============================================================================
+MOVIE
+============================================================================ */
+
+CREATE SEQUENCE MOVIE_SEQ START WITH 1 INCREMENT BY 1;
+
+CREATE TABLE IF NOT EXISTS MOVIE (
+    ID           INTEGER      NOT NULL,
+    TITLE        VARCHAR(255) NOT NULL,
+    GENRE        VARCHAR(255) NOT NULL,
+    DESCRIPTION  TEXT         NOT NULL,
+    DURATION     INTEGER      NOT NULL,
+    RATING       DECIMAL          NULL,
+    RELEASE_DATE DATE             NULL,
+    IMAGE        BYTEA        NOT NULL
+);
+
+ALTER TABLE MOVIE
+    ADD CONSTRAINT PK_MOVIE PRIMARY KEY (ID);
+
+/* ============================================================================
+CLAN
+============================================================================ */
+
+CREATE SEQUENCE CLAN_SEQ START WITH 1 INCREMENT BY 1;
+
+CREATE TABLE IF NOT EXISTS CLAN (
+    ID                     INTEGER                            NOT NULL,
+    CLAN_NAME              VARCHAR(255)                       NOT NULL,
+    RATING                 INTEGER       DEFAULT 0            NOT NULL,
+    NUMBER_OF_PARTICIPANTS BIGINT        DEFAULT 1            NOT NULL,
+    CREATION_DATE          DATE          DEFAULT CURRENT_DATE NOT NULL
+);
+
+ALTER TABLE CLAN
+    ADD CONSTRAINT PK_CLAN PRIMARY KEY (ID);
+
+/* ============================================================================
+COMMENT
+============================================================================ */
+
+CREATE SEQUENCE COMMENT START WITH 1 INCREMENT BY 1;
+
+CREATE TABLE IF NOT EXISTS COMMENT (
+    ID         INTEGER                                            NOT NULL,
+    TEXT       TEXT                                               NOT NULL,
+    DATE_ADDED TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    USR_ID     INTEGER                                            NOT NULL,
+    NEWS_ID    INTEGER                                            NOT NULL
+);
+
+ALTER TABLE COMMENT
+    ADD CONSTRAINT PK_COMMENT PRIMARY KEY (ID);
+
+ALTER TABLE COMMENT
+    ADD CONSTRAINT FK_COMMENT_USR
+        FOREIGN KEY (USR_ID) REFERENCES USR(ID);
+
+ALTER TABLE COMMENT
+    ADD CONSTRAINT FK_COMMENT_NEWS
+        FOREIGN KEY (NEWS_ID) REFERENCES NEWS(ID);
+
+/* ============================================================================
+PAYMENT_HISTORY
+============================================================================ */
+
+CREATE TYPE STATUS AS ENUM ('SUCCESS', 'FAILED', 'PROCESSED');
+
+CREATE SEQUENCE PAYMENT_HISTORY START WITH 1 INCREMENT BY 1;
+
+CREATE TABLE IF NOT EXISTS PAYMENT_HISTORY (
+    ID           INTEGER                                            NOT NULL,
+    SUM_PAYMENT  DECIMAL                                            NOT NULL,
+    PAYMENT_DATE TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    STATUS       STATUS                                             NOT NULL,
+    USR_ID       INTEGER                                            NOT NULL
+);
+
+ALTER TABLE PAYMENT_HISTORY
+    ADD CONSTRAINT PK_PAYMENT_HISTORY PRIMARY KEY (ID);
+
+ALTER TABLE PAYMENT_HISTORY
+    ADD CONSTRAINT FK_PAYMENT_HISTORY_USR
+        FOREIGN KEY (USR_ID) REFERENCES USR(ID);

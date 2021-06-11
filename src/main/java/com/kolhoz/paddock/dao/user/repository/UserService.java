@@ -2,48 +2,65 @@ package com.kolhoz.paddock.dao.user.repository;
 
 import com.kolhoz.paddock.dao.user.User;
 import com.kolhoz.paddock.dao.user.UserDto;
+import com.kolhoz.paddock.exception.UserNotFoundException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+
+// TODO:
+//  1. Работа с рейтингом
+//  2. Работа с кланом
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository,
+                       BCryptPasswordEncoder bCryptPasswordEncoder)
+    {
         this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     public UserDto getCurrentlyLoggedUser() {
-        return findUserByNickname(SecurityContextHolder.getContext()
+        return (UserDto) SecurityContextHolder.getContext()
                 .getAuthentication()
-                .getName()
-        );
+                .getPrincipal();
     }
 
-    public UserDto findUserByNickname(final String nickname) {
-        return userRepository.findUserByNickname(nickname).map(this::convertToDto).get();
+    public UserDto findUserByNickname(final String nickname) throws UserNotFoundException {
+        return Optional.ofNullable(userRepository.findUserByNickname(nickname))
+                .map(this::convertToDto)
+                .orElseThrow(() -> new UserNotFoundException("User not found by username: " + nickname));
     }
 
-    public Optional<UserDto> findUserById(final Long id) {
-        return userRepository.findById(id).map(this::convertToDto);
+    public UserDto findUserById(final Long id) throws UserNotFoundException {
+        return Optional.ofNullable(userRepository.findUserById(id))
+                .map(this::convertToDto)
+                .orElseThrow(() -> new UserNotFoundException("User not found by id: " + id));
     }
 
     public void save(final User newUser) {
         userRepository.save(newUser);
     }
 
-    public void update(final User updatableUser) {
+    public void update(final User updatableUser) throws UserNotFoundException {
         User currentUser = convertToEntity(getCurrentlyLoggedUser());
         currentUser.setUsername(updatableUser.getUsername());
         currentUser.setNickname(updatableUser.getNickname());
-        currentUser.setBirthday(updatableUser.getBirthday());
-        currentUser.setRating(updatableUser.getRating());
+        currentUser.setPassword(encodeUserPassword(updatableUser.getPassword()));
+        currentUser.setGameRating(updatableUser.getGameRating());
         currentUser.setCity(updatableUser.getCity());
 
         save(currentUser);
+    }
+
+    private String encodeUserPassword(final String password) {
+        return bCryptPasswordEncoder.encode(password);
     }
 
     public void deleteById(final Long id) {

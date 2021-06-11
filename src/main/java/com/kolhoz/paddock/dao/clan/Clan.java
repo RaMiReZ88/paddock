@@ -10,6 +10,10 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Set;
 
+
+// TODO:
+//  1. Подумать над связью "клан-админы"
+
 @Entity
 @Table(name = "CLAN")
 @Data
@@ -33,7 +37,9 @@ public class Clan {
     @Column(name = "CREATION_DATE")
     private LocalDate creationDate;
 
-    @Column(name = "PARTICIPANTS")
+    @Column(name = "NUMBER_OF_PARTICIPANTS")
+    private Long numberOfParticipants;
+
     @OneToMany(mappedBy = "clan")
     private Set<User> participants;
 }

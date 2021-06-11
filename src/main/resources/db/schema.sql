@@ -67,20 +67,39 @@ CREATE TABLE IF NOT EXISTS CLAN (
     RATING        INTEGER      NOT NULL,
     CREATION_DATE DATE         NOT NULL,
     PARTISIPANTS
-)
+);
 
+ALTER TABLE CLAN ADD CONSTRAINT PK_CLAN PRIMARY KEY (ID);
 
 /* ============================================================================
 COMMENT
 ============================================================================ */
 
+CREATE SEQUENCE COMMENT START WITH 1 INCREMENT BY 1;
 
+CREATE TABLE IF NOT EXISTS COMMENT (
+    ID INTEGER  NOT NULL,
+    TEXT TEXT NOT NULL,
+    DATE_ADDED TIMESTAMP NOT NULL,
+
+);
+
+ALTER TABLE COMMENT ADD CONSTRAINT PK_COMMENT PRIMARY KEY (ID);
 
 /* ============================================================================
 PAYMENT_HISTORY
 ============================================================================ */
 
+CREATE SEQUENCE PAYMENT_HISTORY START WITH 1 INCREMENT BY 1;
 
+CREATE TABLE IF NOT EXISTS PAYMENT_HISTORY (
+    ID INTEGER NOT NULL,
+    SUM_PAYMENT DECIMAL NOT NULL,
+    PAYMENT_DATE TIMESTAMP  NOT NULL,
+    STATUS
+);
+
+ALTER TABLE PAYMENT_HISTORY ADD CONSTRAINT PK_PAYMENT_HISTORY PRIMARY KEY (ID);
 
 /* ============================================================================
 

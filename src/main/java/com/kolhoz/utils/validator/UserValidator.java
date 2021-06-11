@@ -1,20 +1,20 @@
 package com.kolhoz.utils.validator;
 
 import com.kolhoz.paddock.dao.user.User;
-import com.kolhoz.paddock.exception.InvalidNicknameException;
-import com.kolhoz.paddock.exception.InvalidRequestException;
-import com.kolhoz.paddock.exception.InvalidUsernameException;
+import com.kolhoz.paddock.exception.request.InvalidNicknameException;
+import com.kolhoz.paddock.exception.GeneralException;
+import com.kolhoz.paddock.exception.request.InvalidUsernameException;
 import org.springframework.util.StringUtils;
 
 public class UserValidator {
 
-    public static User validateUserObjectRequest(final User user) throws InvalidRequestException {
+    public static User validateUserObjectRequest(final User user) throws GeneralException {
         return User.builder()
                 .username(validateName(user.getUsername()))
                 .nickname(validateNickname(user.getNickname()))
                 .birthday(user.getBirthday())
                 .city(user.getCity())
-                .rating(user.getRating())
+                .gameRating(user.getGameRating())
                 .build();
     }
 

@@ -23,8 +23,8 @@ public class PaymentHistory {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "AMOUNT_OF_PAYMENT")
-    private Long amountOfPayment;
+    @Column(name = "SUM_PAYMENT")
+    private Long sumPayment;
 
     @Column(name = "PAYMENT_DATE")
     private LocalDateTime paymentDate;
@@ -34,6 +34,6 @@ public class PaymentHistory {
     private PaymentStatus status;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "USER_ID")
     private User user;
 }
