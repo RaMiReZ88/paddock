@@ -19,7 +19,7 @@ public class Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MOVIE_SEQ_GENERATOR")
-    @SequenceGenerator(name = "MOVIE_SEQ_GENERATOR", sequenceName = "MOVIE_SEQ")
+    @SequenceGenerator(name = "MOVIE_SEQ_GENERATOR", sequenceName = "MOVIE_SEQ", allocationSize = 1)
     @Column(name = "ID")
     private Long id;
 

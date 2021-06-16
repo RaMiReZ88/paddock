@@ -10,7 +10,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>com.kolkhoz</groupId>
+	<groupId>com.kolhoz</groupId>
 	<artifactId>paddock</artifactId>
 	<version>0.0.1</version>
 	<name>paddock</name>
@@ -119,9 +119,9 @@
 						<include>**/service/*</include>
 						<include>**/utils/**/*</include>
 					</includes>
-					<excludes>
-						<exclude>**/ota/model/**</exclude>
-					</excludes>
+<!--					<excludes>-->
+<!--						<exclude></exclude>-->
+<!--					</excludes>-->
 				</configuration>
 				<executions>
 					<execution>
