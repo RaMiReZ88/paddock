@@ -10,9 +10,24 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Set;
 
-
-// TODO:
-//  1. Подумать над связью "клан-админы"
+/* TODO:
+    1. Подумать над связью "клан-админы" (Готово)
+    2. Добавить эмблему (Готово)
+    3. Список игр клана
+    4. Чемпионы (подумать: через доп. таблицу, по наибольшему рейтингу или через еще одну связь)
+    5. Выигранные деньги (Готово)
+    6. Проигранные деньги (Готово)
+    7. Оценка стоимости клана
+    8. Союзные кланы (не больше 2-3)
+    9. Основные кланы-враги
+    10. Макс. количество участников (В базовый пакет входит - 100 человек. Остальное обдумать)
+    11. Статусы участников: заблокирован(навсегда или на опред. срок), (не)активный, оштрафован
+    12. Достижения: кубки, значимые победы, открытия и т.п.
+    13. Кол-во сыгранных игр вообще
+    14. Кол-во побед и поражений
+    15. Переговорные комнаты
+    16. Стартовый арсенал в играх от клана (если предусмотрен)
+ */
 
 @Entity
 @Table(name = "CLAN")
@@ -40,6 +55,24 @@ public class Clan {
     @Column(name = "NUMBER_OF_PARTICIPANTS")
     private Long numberOfParticipants;
 
+    @Column(name = "EMBLEM")
+    private byte[] emblem;
+
+    @Column(name = "VICTORIES")
+    private Long victories;
+
+    @Column(name = "DEFEAT")
+    private Long defeat;
+
+    @Column(name = "PROFIT")
+    private Double profit;
+
+    @Column(name = "LOSS")
+    private Double loss;
+
     @OneToMany(mappedBy = "clan")
     private Set<User> participants;
+
+    @OneToMany(mappedBy = "clanAdmin")
+    private Set<User> admins;
 }

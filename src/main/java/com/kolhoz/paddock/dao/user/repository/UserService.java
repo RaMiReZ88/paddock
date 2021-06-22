@@ -2,8 +2,12 @@ package com.kolhoz.paddock.dao.user.repository;
 
 import com.kolhoz.paddock.dao.user.User;
 import com.kolhoz.paddock.dao.user.UserDto;
-import com.kolhoz.paddock.exception.UserNotFoundException;
+import com.kolhoz.paddock.exception.entity.UserNotFoundException;
+import com.kolhoz.paddock.security.AuthenticatedUserDetails;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +18,7 @@ import java.util.Optional;
 //  2. Работа с кланом
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -26,6 +30,13 @@ public class UserService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        return Optional.ofNullable(userRepository.findByLogin(login))
+                .map(AuthenticatedUserDetails::new)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("Unknown user: %s", login)));
+    }
+
     public UserDto getCurrentlyLoggedUser() {
         return (UserDto) SecurityContextHolder.getContext()
                 .getAuthentication()
@@ -35,13 +46,13 @@ public class UserService {
     public UserDto findUserByNickname(final String nickname) throws UserNotFoundException {
         return Optional.ofNullable(userRepository.findUserByNickname(nickname))
                 .map(this::convertToDto)
-                .orElseThrow(() -> new UserNotFoundException("User not found by username: " + nickname));
+                .orElseThrow(() -> new UserNotFoundException(String.format("User not found by username: %s", nickname)));
     }
 
     public UserDto findUserById(final Long id) throws UserNotFoundException {
         return Optional.ofNullable(userRepository.findUserById(id))
                 .map(this::convertToDto)
-                .orElseThrow(() -> new UserNotFoundException("User not found by id: " + id));
+                .orElseThrow(() -> new UserNotFoundException(String.format("User not found by id: %s", id)));
     }
 
     public void save(final User newUser) {

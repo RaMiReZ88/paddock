@@ -1,4 +1,6 @@
-package com.kolhoz.paddock.exception;
+package com.kolhoz.paddock.exception.entity;
+
+import com.kolhoz.paddock.exception.GeneralException;
 
 public class UserNotFoundException extends GeneralException {
 

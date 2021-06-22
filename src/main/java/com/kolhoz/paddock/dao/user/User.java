@@ -9,12 +9,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
+
+// TODO:
 
 @Entity
 @Table(name = "USR")
@@ -35,6 +38,9 @@ public class User {
 
     @Column(name = "NICKNAME")
     private String nickname;
+
+    @Column(name = "LOGIN")
+    private String login;
 
     @Column(name = "PASSWORD")
     private String password;
@@ -74,6 +80,10 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "CLAN_ID")
     private Clan clan;
+
+    @ManyToOne
+    @JoinColumn(name = "CLAN_ADMIN")
+    private Clan clanAdmin;
 
     @OneToMany(mappedBy = "user")
     private Set<PaymentHistory> paymentHistory;
