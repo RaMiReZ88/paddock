@@ -14,11 +14,13 @@ import java.time.LocalDate;
 public class MovieDto {
 
     private Long id;
-    private String name;
+    private String title;
+    private String genre;
     private String description;
     private Integer duration;
+    private String rating;
     private String appraisal;
-    private LocalDate release;
-    private byte [] image;
+    private LocalDate releaseDate;
+    private byte[] image;
 
 }

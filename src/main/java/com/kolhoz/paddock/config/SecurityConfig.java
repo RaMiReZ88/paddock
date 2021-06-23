@@ -2,30 +2,32 @@ package com.kolhoz.paddock.config;
 
 import com.kolhoz.paddock.dao.user.repository.UserService;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 // TODO:
 //  1. OAuth2: ВК, Twitter, Facebook, Reddit
 
 @Configuration
 @EnableWebSecurity
+@ComponentScan(basePackages = {"com.kolhoz.utils.security.context"})
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserService userService;
 
-    public SecurityConfig(UserService userService) {
+    public SecurityConfig(@Lazy UserService userService) {
         this.userService = userService;
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
 //        http.authorizeRequests()
 //                .antMatchers("");
 //
@@ -48,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 ////                .addLogoutHandler()
 //                .deleteCookies()
 //        ).httpBasic();
-    }
+//    }
 
     @Override
     public void configure(WebSecurity web) {
@@ -57,6 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication().withUser("user").password(getBCryptPasswordEncoder().encode("123456")).roles("USER");
         auth.userDetailsService(userService).passwordEncoder(getBCryptPasswordEncoder());
     }
 

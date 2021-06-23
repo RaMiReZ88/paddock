@@ -22,6 +22,8 @@ public class NewsDto {
     private String description;
     private String theme;
     private byte[] image;
-    private User author;
+    private Long likes;
+    private Long dislikes;
+    private User user;
     private List<Comment> comments;
 }

@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 // TODO:
+//  1. Добавить поле "email"
 
 @Entity
 @Table(name = "USR")
@@ -36,14 +37,12 @@ public class User {
     @Column(name = "USERNAME")
     private String username;
 
+    @Column(name = "PASSWORD")
+    private String password;
+
     @Column(name = "NICKNAME")
     private String nickname;
 
-    @Column(name = "LOGIN")
-    private String login;
-
-    @Column(name = "PASSWORD")
-    private String password;
 
     @Column(name = "BIRTHDAY")
     @DateTimeFormat(pattern = "dd-mm-yyyy")

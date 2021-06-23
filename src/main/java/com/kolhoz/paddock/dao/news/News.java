@@ -48,7 +48,7 @@ public class News {
     private Long dislikes;
 
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "USR_ID")
     private User user;
 
     @OneToMany(mappedBy = "news")

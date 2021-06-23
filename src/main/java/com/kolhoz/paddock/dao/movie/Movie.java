@@ -38,6 +38,9 @@ public class Movie {
     @Column(name = "RATING")
     private String rating;
 
+    @Column(name = "APPRAISAL")
+    private String appraisal;
+
     @Column(name = "RELEASE_DATE")
     @DateTimeFormat(pattern = "dd-mmmm-yyyy")
     private LocalDate releaseDate;

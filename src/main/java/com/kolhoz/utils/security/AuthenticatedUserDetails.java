@@ -1,7 +1,8 @@
-package com.kolhoz.paddock.security;
+package com.kolhoz.utils.security;
 
 import com.kolhoz.paddock.dao.user.User;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,12 +13,13 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
+@Builder
 public class AuthenticatedUserDetails implements UserDetails {
 
     private User user;
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(user.getUserRole().name()));
     }
 
