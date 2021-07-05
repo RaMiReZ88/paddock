@@ -26,14 +26,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.userService = userService;
     }
 
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
 //        http.authorizeRequests()
-//                .antMatchers("");
-//
-////        http.anonymous()
-////                .authenticationProvider()
-//
+//                .antMatchers("/auth/**")
+//                .authenticated()
+//                .and()
+//                .httpBasic()
+//                .and()
+//                .csrf().disable();
+
+//        http.anonymous()
+//                .authenticationProvider()
+
 //        http.formLogin(login -> login
 //                .loginPage("")
 //                .usernameParameter("")
@@ -50,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 ////                .addLogoutHandler()
 //                .deleteCookies()
 //        ).httpBasic();
-//    }
+    }
 
     @Override
     public void configure(WebSecurity web) {

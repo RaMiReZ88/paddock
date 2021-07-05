@@ -1,17 +1,14 @@
 package com.kolhoz.paddock.dao.user.repository;
 
 import com.kolhoz.paddock.dao.user.User;
-import com.kolhoz.paddock.dao.user.UserDto;
+import com.kolhoz.paddock.dao.user.dto.UserDto;
 import com.kolhoz.paddock.exception.entity.UserNotFoundException;
-import com.kolhoz.utils.security.AuthenticatedUserDetails;
+import com.kolhoz.paddock.controller.auth.login.response.LoginResponse;
 import com.kolhoz.utils.security.context.SecurityContextWorker;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 // TODO:
 //  1. Работа с рейтингом
@@ -34,9 +31,9 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    public AuthenticatedUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDto loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findUserByUsername(username)
-                .map(AuthenticatedUserDetails::new)
+                .map(this::convertToDto)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("Unknown user: %s", username)));
     }
 
@@ -53,6 +50,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void save(final User newUser) {
+        newUser.setPassword(encodePassword(newUser.getPassword()));
         userRepository.save(newUser);
     }
 
@@ -67,7 +65,7 @@ public class UserService implements UserDetailsService {
 //        save(currentUser);
 //    }
 
-    private String encodeUserPassword(final String password) {
+    private String encodePassword(final String password) {
         return bCryptPasswordEncoder.encode(password);
     }
 
