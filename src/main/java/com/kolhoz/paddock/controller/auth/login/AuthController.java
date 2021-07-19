@@ -1,10 +1,10 @@
 package com.kolhoz.paddock.controller.auth.login;
 
 import com.kolhoz.paddock.controller.auth.login.request.LoginRequest;
-import com.kolhoz.paddock.dao.user.Role;
 import com.kolhoz.paddock.dao.user.dto.UserDto;
 import com.kolhoz.paddock.dao.user.repository.UserService;
 import com.kolhoz.paddock.controller.auth.login.response.LoginResponse;
+import com.kolhoz.paddock.dao.user.repository.AuthValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -30,24 +30,24 @@ public class AuthController {
         try {
             log.info("Login request : {}, {}", loginRequest.getUsername(), loginRequest.getPassword());
 
-            UserDto userDto = userService.loadUserByUsername(loginRequest.getUsername());
+            final UserDto userDto = userService.loadUserByUsername(AuthValidator.validateUsername(loginRequest.getUsername()));
 
-            if (userDto.getPassword().equals(loginRequest.getPassword())) {
+            if (userDto.getPassword().equals(AuthValidator.validatePassword(loginRequest.getPassword()))) {
                 return ResponseEntity.ok(LoginResponse.builder()
                         .authenticatedUser(userDto)
                         .error(null)
                         .build());
             }
             else {
+                log.error("Invalid password: {}", loginRequest.getPassword());
                 return ResponseEntity.ok(LoginResponse.builder()
                         .authenticatedUser(null)
                         .error("Invalid password: " + loginRequest.getPassword())
-                        .build()
-                );
+                        .build());
             }
         }
         catch (Exception e) {
-            log.error("Failed login request - Invalid username: {}", loginRequest.getUsername());
+            log.error(e.getMessage());
             return ResponseEntity.badRequest()
                     .body(LoginResponse.builder()
                             .authenticatedUser(null)

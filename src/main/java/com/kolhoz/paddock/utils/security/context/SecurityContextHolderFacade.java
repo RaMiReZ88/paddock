@@ -5,7 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component
-public final class SecurityContextHolderFacade implements SecurityContextFacade {
+public class SecurityContextHolderFacade implements SecurityContextFacade {
 
     @Override
     public SecurityContext getSecurityContext() {

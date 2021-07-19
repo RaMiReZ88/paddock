@@ -15,4 +15,5 @@ public abstract class GeneralResponse {
     private final String uuid = UUID.randomUUID().toString();
     private final String dateTime = LocalDateTimeFormatter.parseToDateTimeFormat();
     private String error;
+
 }

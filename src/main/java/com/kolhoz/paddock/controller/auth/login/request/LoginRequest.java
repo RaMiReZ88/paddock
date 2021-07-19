@@ -9,8 +9,6 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 public class LoginRequest extends GeneralRequest {
-
     private String username;
     private String password;
-
 }

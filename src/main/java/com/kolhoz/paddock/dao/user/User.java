@@ -1,15 +1,12 @@
 package com.kolhoz.paddock.dao.user;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kolhoz.paddock.dao.clan.Clan;
 import com.kolhoz.paddock.dao.comment.Comment;
 import com.kolhoz.paddock.dao.news.News;
 import com.kolhoz.paddock.dao.payment.PaymentHistory;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -19,10 +16,12 @@ import java.util.Set;
 
 // TODO:
 //  1. Добавить поле "email"
+//  2. Добавить поле "phoneNumber"
 
 @Entity
 @Table(name = "USR")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -40,9 +39,14 @@ public class User {
     @Column(name = "PASSWORD")
     private String password;
 
+//    @Column(name = "MATCHING_PASSWORD")
+//    private String matchingPassword;
+
     @Column(name = "NICKNAME")
     private String nickname;
 
+//    @Column(name = "EMAIL")
+//    private String email;
 
     @Column(name = "BIRTHDAY")
     @DateTimeFormat(pattern = "dd-mm-yyyy")
@@ -59,6 +63,7 @@ public class User {
     private Role userRole;
 
     @Column(name = "REGISTRATION_DATETIME")
+    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime registrationDateTime;
 
     @Column(name = "GAME_RATING")
@@ -74,20 +79,23 @@ public class User {
     private Boolean isSubscribe;
 
     @Column(name = "EXPIRATION_SUBS_DATE")
+    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime expirationSubsDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CLAN_ID")
-    private Clan clan;
+    private Clan clan;  
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CLAN_ADMIN")
     private Clan clanAdmin;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonManagedReference
     private Set<PaymentHistory> paymentHistory;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonManagedReference
     private Set<News> news;
 
     @OneToMany(mappedBy = "user")
