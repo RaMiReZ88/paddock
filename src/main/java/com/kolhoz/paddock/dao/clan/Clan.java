@@ -1,10 +1,9 @@
 package com.kolhoz.paddock.dao.clan;
 
+import com.kolhoz.paddock.dao.IdGenerator;
 import com.kolhoz.paddock.dao.user.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -31,43 +30,31 @@ import java.util.Set;
 
 @Entity
 @Table(name = "CLAN")
-@Data
+@SequenceGenerator(name = "CLAN_RECORD_ID_GENERATOR", sequenceName = "CLAN_SEQ", allocationSize = 1)
+
+@Getter
+@Setter
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Clan {
+public class Clan extends IdGenerator {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CLAN_SEQ_GENERATOR")
-    @SequenceGenerator(name = "CLAN_SEQ_GENERATOR", sequenceName = "CLAN_SEQ", allocationSize = 1)
-    @Column(name = "ID")
-    private Long id;
-
-    @Column(name = "CLAN_NAME")
     private String clanName;
 
-    @Column(name = "RATING")
     private Long rating;
 
-    @Column(name = "CREATION_DATE")
     private LocalDate creationDate;
 
-    @Column(name = "NUMBER_OF_PARTICIPANTS")
     private Long numberOfParticipants;
 
-    @Column(name = "EMBLEM")
     private byte[] emblem;
 
-    @Column(name = "VICTORIES")
     private Long victories;
 
-    @Column(name = "DEFEAT")
     private Long defeat;
 
-    @Column(name = "PROFIT")
     private Double profit;
 
-    @Column(name = "LOSS")
     private Double loss;
 
     @OneToMany(mappedBy = "clan")

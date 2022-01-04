@@ -1,2 +1,4 @@
-package com.kolhoz.paddock.dao.security.repository;public class JwtTokenRepositore {
+package com.kolhoz.paddock.dao.security.repository;
+
+class JwtTokenRepository {
 }

@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class NewsDto {
 
-    private Long id;
+    private Long recordId;
     private String title;
     private LocalDateTime creationDateTime;
     private String description;

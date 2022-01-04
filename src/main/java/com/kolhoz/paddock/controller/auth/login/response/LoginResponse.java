@@ -5,10 +5,10 @@ import com.kolhoz.paddock.dao.user.dto.UserDto;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
+@Getter
 @SuperBuilder
-@AllArgsConstructor
 public class LoginResponse extends GeneralResponse {
-    private UserDto authenticatedUser;
+
+    private final UserDto authenticatedUser;
+
 }

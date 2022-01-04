@@ -1,11 +1,13 @@
 package com.kolhoz.paddock.dao.user;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.kolhoz.paddock.dao.IdGenerator;
 import com.kolhoz.paddock.dao.clan.Clan;
 import com.kolhoz.paddock.dao.comment.Comment;
 import com.kolhoz.paddock.dao.news.News;
-import com.kolhoz.paddock.dao.payment.PaymentHistory;
+import com.kolhoz.paddock.dao.payment.Payment;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -19,66 +21,49 @@ import java.util.Set;
 //  2. Добавить поле "phoneNumber"
 
 @Entity
-@Table(name = "USR")
+@Table(name = "USER")
+@SequenceGenerator(name = "USER_RECORD_ID_GENERATOR", sequenceName = "USER_SEQ", allocationSize = 1)
+
 @Getter
 @Setter
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class User {
+public class User extends IdGenerator {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USR_SEQ_GENERATOR")
-    @SequenceGenerator(name = "USR_SEQ_GENERATOR", sequenceName = "USR_SEQ", allocationSize = 1)
-    @Column(name = "ID")
-    private Long id;
-
-    @Column(name = "USERNAME")
     private String username;
 
-    @Column(name = "PASSWORD")
     private String password;
 
 //    @Column(name = "MATCHING_PASSWORD")
 //    private String matchingPassword;
 
-    @Column(name = "NICKNAME")
     private String nickname;
 
 //    @Column(name = "EMAIL")
 //    private String email;
 
-    @Column(name = "BIRTHDAY")
     @DateTimeFormat(pattern = "dd-mm-yyyy")
     private LocalDate birthday;
 
-    @Column(name = "CITY")
     private String city;
 
-    @Column(name = "AVATAR")
     private byte[] avatar;
 
-    @Column(name = "USR_ROLE")
     @Enumerated(EnumType.STRING)
     private Role userRole;
 
-    @Column(name = "REGISTRATION_DATETIME")
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime registrationDateTime;
 
-    @Column(name = "GAME_RATING")
     private Long gameRating;
 
-    @Column(name = "MEDIA_RATING")
     private Long mediaRating;
 
-    @Column(name = "BANNED")
     private Boolean banned;
 
-    @Column(name = "SUBSCRIPTION")
     private Boolean isSubscribe;
 
-    @Column(name = "EXPIRATION_SUBS_DATE")
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime expirationSubsDate;
 
@@ -92,7 +77,7 @@ public class User {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @JsonManagedReference
-    private Set<PaymentHistory> paymentHistory;
+    private Set<Payment> payment;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @JsonManagedReference

@@ -1,2 +1,4 @@
-package com.kolhoz.paddock.dao.news;public enum NewsTheme {
+package com.kolhoz.paddock.dao.news;
+
+public enum NewsTheme {
 }

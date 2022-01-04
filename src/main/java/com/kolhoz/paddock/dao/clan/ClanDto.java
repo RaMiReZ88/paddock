@@ -15,7 +15,7 @@ import java.util.Set;
 @Builder
 public class ClanDto {
 
-    private Long id;
+    private Long recordId;
     private String clanName;
     private Long rating;
     private LocalDate creationDate;

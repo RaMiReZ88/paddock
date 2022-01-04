@@ -3,8 +3,7 @@ package com.kolhoz.paddock.dao.user.repository;
 import com.kolhoz.paddock.dao.user.User;
 import com.kolhoz.paddock.dao.user.dto.UserDto;
 import com.kolhoz.paddock.exception.entity.UserNotFoundException;
-import com.kolhoz.paddock.controller.auth.login.response.LoginResponse;
-import com.kolhoz.utils.security.context.SecurityContextWorker;
+import com.kolhoz.paddock.utils.security.context.SecurityContextWorker;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -89,7 +88,7 @@ public class UserService implements UserDetailsService {
                 .mediaRating(user.getMediaRating())
                 .banned(user.getBanned())
                 .comments(user.getComments())
-                .paymentHistory(user.getPaymentHistory())
+                .payment(user.getPayment())
                 .news(user.getNews())
                 .clan(user.getClan())
                 .clanAdmin(user.getClanAdmin())
@@ -112,7 +111,7 @@ public class UserService implements UserDetailsService {
                 .mediaRating(userDto.getMediaRating())
                 .banned(userDto.getBanned())
                 .comments(userDto.getComments())
-                .paymentHistory(userDto.getPaymentHistory())
+                .payment(userDto.getPayment())
                 .news(userDto.getNews())
                 .clan(userDto.getClan())
                 .clanAdmin(userDto.getClanAdmin())

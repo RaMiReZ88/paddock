@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 // TODO:
 //  1. OAuth2: ВК, Twitter, Facebook, Reddit
+//  2. Добавить cors
 
 @Configuration
 @EnableWebSecurity

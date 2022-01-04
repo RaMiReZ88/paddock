@@ -1,4 +1,4 @@
-package com.kolhoz.utils.security.context;
+package com.kolhoz.paddock.utils.security.context;
 
 import org.springframework.stereotype.Component;
 
@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class SecurityContextWorker {
 
-    private final SecurityContextHolderFacade securityContextHolderFacade;
+    private final com.kolhoz.paddock.utils.security.context.SecurityContextHolderFacade securityContextHolderFacade;
 
-    public SecurityContextWorker(SecurityContextHolderFacade securityContextHolderFacade) {
+    public SecurityContextWorker(com.kolhoz.paddock.utils.security.context.SecurityContextHolderFacade securityContextHolderFacade) {
         this.securityContextHolderFacade = securityContextHolderFacade;
     }
 

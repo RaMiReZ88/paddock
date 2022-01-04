@@ -4,11 +4,11 @@ import com.kolhoz.paddock.controller.GeneralRequest;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-@Data
+@Getter
 @SuperBuilder
-@EqualsAndHashCode(callSuper = true)
-@AllArgsConstructor
 public class LoginRequest extends GeneralRequest {
-    private String username;
-    private String password;
+
+    private final String username;
+    private final String password;
+
 }

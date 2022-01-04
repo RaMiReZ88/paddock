@@ -3,7 +3,7 @@ package com.kolhoz.paddock.dao.user.dto;
 import com.kolhoz.paddock.dao.clan.Clan;
 import com.kolhoz.paddock.dao.comment.Comment;
 import com.kolhoz.paddock.dao.news.News;
-import com.kolhoz.paddock.dao.payment.PaymentHistory;
+import com.kolhoz.paddock.dao.payment.Payment;
 import com.kolhoz.paddock.dao.user.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,14 +34,19 @@ public class UserDto implements UserDetails {
     private String city;
     private byte[] avatar;
     private Role userRole;
-    private LocalDateTime registrationDateTime;
+
     private Long gameRating;
     private Long mediaRating;
+
     private Boolean banned;
+
+    private LocalDateTime registrationDateTime;
     private LocalDateTime expirationSubsDate;
+
     private Clan clan;
     private Clan clanAdmin;
-    private Set<PaymentHistory> paymentHistory;
+
+    private Set<Payment> payment;
     private List<Comment> comments;
     private Set<News> news;
 

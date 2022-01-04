@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Builder
 public class MovieDto {
 
-    private Long id;
+    private Long recordId;
     private String title;
     private String genre;
     private String description;

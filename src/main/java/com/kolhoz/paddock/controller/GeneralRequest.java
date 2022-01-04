@@ -1,6 +1,6 @@
 package com.kolhoz.paddock.controller;
 
-import com.kolhoz.utils.date.LocalDateTimeFormatter;
+import com.kolhoz.paddock.utils.date.LocalDateTimeFormatter;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
