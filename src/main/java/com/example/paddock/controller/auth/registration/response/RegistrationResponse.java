@@ -1,9 +1,6 @@
 package com.example.paddock.controller.auth.registration.response;
 
-import com.example.paddock.controller.common.Response;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import com.example.paddock.controller.Response;
 import lombok.experimental.SuperBuilder;
 
 @SuperBuilder

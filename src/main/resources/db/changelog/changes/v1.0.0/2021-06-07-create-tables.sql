@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS NEWS
     THEME         VARCHAR(255)                                          NOT NULL,
     IMAGE         BYTEA                                                 NOT NULL,
     LIKES         INTEGER                     DEFAULT 0                 NOT NULL,
-    DISLIKES      INTEGER                     DEFAULT 0                 NOT NULL
+    DISLIKES      INTEGER                     DEFAULT 0                 NOT NULL,
     USER_ID       INTEGER                                               NOT NULL
 );
 

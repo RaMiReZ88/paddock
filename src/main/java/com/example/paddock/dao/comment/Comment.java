@@ -1,8 +1,8 @@
-package com.kolhoz.paddock.dao.comment;
+package com.example.paddock.dao.comment;
 
-import com.kolhoz.paddock.dao.IdGenerator;
-import com.kolhoz.paddock.dao.news.News;
-import com.kolhoz.paddock.dao.user.User;
+import com.example.paddock.dao.IdGenerator;
+import com.example.paddock.dao.news.News;
+import com.example.paddock.dao.user.User;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

@@ -1,18 +1,16 @@
-package com.kolhoz.paddock.controller;
+package com.example.paddock.controller;
 
-import com.kolhoz.paddock.utils.date.LocalDateTimeFormatter;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.example.paddock.utils.date.LocalDateTimeFormatter;
 import lombok.experimental.SuperBuilder;
 
 import java.util.UUID;
 
-@Data
-@NoArgsConstructor
+
 @SuperBuilder
-public abstract class GeneralRequest {
+public class Response {
 
     private final String uuid = UUID.randomUUID().toString();
     private final String dateTime = LocalDateTimeFormatter.parseToDateTimeFormat();
+    private final String error;
 
 }

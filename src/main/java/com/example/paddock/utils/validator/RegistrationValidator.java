@@ -2,10 +2,10 @@ package com.example.paddock.utils.validator;
 
 import com.example.paddock.controller.auth.registration.request.RegistrationRequest;
 import com.example.paddock.dao.user.dto.UserDto;
-import com.example.paddock.exception.request.validate.InvalidEmailException;
-import com.example.paddock.exception.request.validate.InvalidNicknameException;
-import com.example.paddock.exception.request.validate.InvalidPasswordException;
-import com.example.paddock.exception.request.validate.InvalidValidateException;
+import com.example.paddock.exception.validate.InvalidEmailException;
+import com.example.paddock.exception.validate.InvalidNicknameException;
+import com.example.paddock.exception.validate.InvalidPasswordException;
+import com.example.paddock.exception.validate.InvalidValidateException;
 import org.springframework.util.StringUtils;
 
 import java.util.regex.Matcher;
@@ -17,7 +17,7 @@ public class RegistrationValidator {
 
     public static UserDto validate(final RegistrationRequest registrationRequest) throws InvalidValidateException {
         return UserDto.builder()
-                .login(validateNickname(registrationRequest.getNickname()))
+                .nickname(validateNickname(registrationRequest.getNickname()))
                 .password(validatePassword(registrationRequest.getPassword(), registrationRequest.getMatchPassword()))
                 .nickname(validateNickname(registrationRequest.getNickname()))
                 .email(validateEmail(registrationRequest.getEmail()))

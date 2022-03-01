@@ -1,10 +1,10 @@
-package com.kolhoz.paddock.dao.user.dto;
+package com.example.paddock.dao.user.dto;
 
-import com.kolhoz.paddock.dao.clan.Clan;
-import com.kolhoz.paddock.dao.comment.Comment;
-import com.kolhoz.paddock.dao.news.News;
-import com.kolhoz.paddock.dao.payment.Payment;
-import com.kolhoz.paddock.dao.user.Role;
+import com.example.paddock.dao.clan.Clan;
+import com.example.paddock.dao.comment.Comment;
+import com.example.paddock.dao.news.News;
+import com.example.paddock.dao.payment.Payment;
+import com.example.paddock.dao.user.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,7 +25,7 @@ import java.util.Set;
 @Builder
 public class UserDto implements UserDetails {
 
-    private Long id;
+    private Long recordId;
     private String username;
     private String password;
     private String nickname;
@@ -47,7 +47,9 @@ public class UserDto implements UserDetails {
     private Clan clanAdmin;
 
     private Set<Payment> payment;
+
     private List<Comment> comments;
+
     private Set<News> news;
 
     @Override

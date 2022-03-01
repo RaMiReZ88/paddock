@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/registration")
-@CrossOrigin(origins = "http://localhost:8081", maxAge = 3600)
+
 @Slf4j
 @RequiredArgsConstructor
 public class RegistrationController {
@@ -20,7 +20,7 @@ public class RegistrationController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<RegistrationResponse> registration(@RequestBody final RegistrationRequest registrationRequest) {
+    public ResponseEntity<RegistrationResponse> registration(@RequestBody RegistrationRequest registrationRequest) {
         try {
             log.info("Registration request: " + registrationRequest);
 
@@ -28,17 +28,17 @@ public class RegistrationController {
 
             if (userService.findByNickname(registrationUserData.getNickname()) == null) {
 
-                userService.save(userService.convertToEntity(registrationUserData));
+                userService.save(registrationUserData);
 
                 return ResponseEntity.ok(RegistrationResponse.builder()
                         .status("success")
-                        .error(null)
+                        .status(null)
                         .build());
             }
             else {
                 return ResponseEntity.badRequest()
                         .body(RegistrationResponse.builder()
-                                .error("User with record id: " + registrationUserData.getRecordId() + " already exists")
+                                .status("User with record id: " + registrationUserData.getRecordId() + " already exists")
                                 .build());
             }
         }
@@ -47,7 +47,7 @@ public class RegistrationController {
 
             return ResponseEntity.badRequest()
                     .body(RegistrationResponse.builder()
-                            .error(error.getMessage())
+                            .status(error.getMessage())
                             .build());
         }
     }

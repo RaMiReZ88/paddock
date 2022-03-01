@@ -1,7 +1,7 @@
-package com.kolhoz.paddock.dao.clan;
+package com.example.paddock.dao.clan;
 
-import com.kolhoz.paddock.dao.IdGenerator;
-import com.kolhoz.paddock.dao.user.User;
+import com.example.paddock.dao.IdGenerator;
+import com.example.paddock.dao.user.User;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

@@ -1,4 +1,4 @@
-package com.example.paddock.exception.request.validate;
+package com.example.paddock.exception.validate;
 
 public class InvalidPasswordException extends InvalidValidateException {
 

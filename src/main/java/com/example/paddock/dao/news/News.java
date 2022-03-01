@@ -1,9 +1,8 @@
-package com.kolhoz.paddock.dao.news;
+package com.example.paddock.dao.news;
 
-
-import com.kolhoz.paddock.dao.IdGenerator;
-import com.kolhoz.paddock.dao.comment.Comment;
-import com.kolhoz.paddock.dao.user.User;
+import com.example.paddock.dao.IdGenerator;
+import com.example.paddock.dao.comment.Comment;
+import com.example.paddock.dao.user.User;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -37,7 +36,7 @@ public class News extends IdGenerator {
     private Long dislikes;
 
     @ManyToOne
-    @JoinColumn(name = "USR_ID")
+    @JoinColumn(name = "USER_ID")
     private User user;
 
     @OneToMany(mappedBy = "news")

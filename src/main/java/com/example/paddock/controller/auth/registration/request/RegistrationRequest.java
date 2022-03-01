@@ -1,6 +1,6 @@
 package com.example.paddock.controller.auth.registration.request;
 
-import com.example.paddock.controller.common.Request;
+import com.example.paddock.controller.Request;
 import lombok.*;
 
 import java.time.LocalDate;

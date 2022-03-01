@@ -1,6 +1,6 @@
-package com.kolhoz.paddock.dao.movie;
+package com.example.paddock.dao.movie;
 
-import com.kolhoz.paddock.dao.IdGenerator;
+import com.example.paddock.dao.IdGenerator;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.format.annotation.DateTimeFormat;

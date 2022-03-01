@@ -1,4 +1,4 @@
-package com.kolhoz.paddock.dao;
+package com.example.paddock.dao;
 
 
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.example.paddock.exception.request.validate;
+package com.example.paddock.exception.validate;
 
 import com.example.paddock.exception.GeneralException;
 

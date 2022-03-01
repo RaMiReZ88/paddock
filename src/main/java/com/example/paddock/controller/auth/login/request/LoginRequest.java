@@ -1,6 +1,6 @@
 package com.example.paddock.controller.auth.login.request;
 
-import com.example.paddock.controller.common.Request;
+import com.example.paddock.controller.Request;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

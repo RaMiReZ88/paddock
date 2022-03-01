@@ -1,11 +1,11 @@
-package com.kolhoz.paddock.dao.user;
+package com.example.paddock.dao.user;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.kolhoz.paddock.dao.IdGenerator;
-import com.kolhoz.paddock.dao.clan.Clan;
-import com.kolhoz.paddock.dao.comment.Comment;
-import com.kolhoz.paddock.dao.news.News;
-import com.kolhoz.paddock.dao.payment.Payment;
+import com.example.paddock.dao.IdGenerator;
+import com.example.paddock.dao.clan.Clan;
+import com.example.paddock.dao.comment.Comment;
+import com.example.paddock.dao.news.News;
+import com.example.paddock.dao.payment.Payment;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.format.annotation.DateTimeFormat;

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/auth")
-@CrossOrigin(origins = "http://localhost:8081", maxAge = 3600)
+
 @Slf4j
 @RequiredArgsConstructor
 public class AuthController {
@@ -28,7 +28,7 @@ public class AuthController {
 
             if (userDto.getPassword().equals(loginRequest.getPassword())) {
                 return ResponseEntity.ok(createLoginResponse(userDto, null));
-            } 
+            }
             else {
                 log.error("Invalid password: {}", loginRequest.getPassword());
 
